@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import userCreateService from "../../services/users/userCreate.service";
+import userListOneService from "../../services/users/userListOne.service";
 import usersListService from "../../services/users/usersList.service";
 
 class User {
@@ -34,7 +35,22 @@ class User {
     }
   };
 
-  static show = async (req: Request, res: Response) => {};
+  static show = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      const user = await userListOneService(id);
+
+      return res.status(200).send(user);
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(400).send({
+          error: err.name,
+          message: err.message,
+        });
+      }
+    }
+  };
 
   static update = async (req: Request, res: Response) => {};
 
