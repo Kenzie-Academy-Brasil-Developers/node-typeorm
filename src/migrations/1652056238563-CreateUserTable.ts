@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  QueryRunnerAlreadyReleasedError,
-  Table,
-} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateUserTable1652056238563 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -38,12 +33,12 @@ export class CreateUserTable1652056238563 implements MigrationInterface {
           },
           {
             name: "created_at",
-            type: "timestamptz",
+            type: "timestamp",
             default: "now()",
           },
           {
             name: "updated_at",
-            type: "timestamptz",
+            type: "timestamp",
             default: "now()",
           },
         ],
