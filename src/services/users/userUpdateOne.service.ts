@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { User } from "../../models/User";
 import bcrypt from "bcrypt";
+import { AppError } from "../../errors/AppError";
 
 const userUpdateOneService = async (
   id: string,
@@ -11,10 +12,10 @@ const userUpdateOneService = async (
     where: { id },
   });
 
-  if (!user) throw new Error("User not found");
+  if (!user) throw new AppError("User not found");
 
   if (password && (await bcrypt.compare(password, user.password)))
-    throw new Error("Inform a different password");
+    throw new AppError("Inform a different password");
 
   (password || email || name || age) && (user.updated_at = new Date());
   password && (user.password = await bcrypt.hash(password, 8));

@@ -4,6 +4,7 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../models/User";
 
 import { IUserCreate } from "../../interfaces/users";
+import { AppError } from "../../errors/AppError";
 
 const userCreateService = async ({
   name,
@@ -18,7 +19,7 @@ const userCreateService = async ({
     },
   });
 
-  if (emailAlreadyExists) throw new Error("Email already in use.");
+  if (emailAlreadyExists) throw new AppError("Email already in use.", 401);
 
   const user = new User();
   user.name = name;

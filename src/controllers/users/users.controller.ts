@@ -7,88 +7,45 @@ import userDeleteService from "../../services/users/userDelete.service";
 
 class UserController {
   static store = async (req: Request, res: Response) => {
-    try {
-      const { name, email, password, age } = req.newUser;
-      const newUser = await userCreateService({ name, email, password, age });
+    const { name, email, password, age } = req.newUser;
+    const newUser = await userCreateService({ name, email, password, age });
 
-      return res.status(201).send(newUser);
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(400).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    return res.status(201).send(newUser);
   };
 
   static index = async (req: Request, res: Response) => {
-    try {
-      const users = await usersListService();
+    const users = await usersListService();
 
-      return res.status(200).send(users);
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(400).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    return res.status(200).send(users);
   };
 
   static show = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    try {
-      const user = await userListOneService(id);
+    const user = await userListOneService(id);
 
-      return res.status(200).send(user);
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(400).send({
-          error: err.name,
-          message: err.message,
-        });
-      }
-    }
+    return res.status(200).send(user);
   };
 
   static update = async (req: Request, res: Response) => {
     const { id } = req.params;
     const newValues = req.body;
 
-    try {
-      await userUpdateOneService(id, newValues);
+    await userUpdateOneService(id, newValues);
 
-      return res.status(200).json({
-        message: "User updated",
-      });
-    } catch (err) {
-      if (err instanceof Error)
-        return res.status(400).send({
-          error: err.name,
-          message: err.message,
-        });
-    }
+    return res.status(200).json({
+      message: "User updated",
+    });
   };
 
   static delete = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    try {
-      await userDeleteService(id);
+    await userDeleteService(id);
 
-      return res.status(200).json({
-        message: "User deleted",
-      });
-    } catch (err) {
-      if (err instanceof Error)
-        return res.status(400).send({
-          error: err.name,
-          message: err.message,
-        });
-    }
+    return res.status(200).json({
+      message: "User deleted",
+    });
   };
 }
 
