@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import User from "../controllers/users/users.controller";
+import UserController from "../controllers/users/users.controller";
 
 import {
   validateUserCreate,
@@ -9,13 +9,13 @@ import {
 
 const routes = Router();
 
-routes.post("", validateUserCreate(userCreateSchema), User.store);
+routes.post("", validateUserCreate(userCreateSchema), UserController.store);
 
-routes.get("", User.index);
-routes.get("/:id", User.show);
+routes.get("", UserController.index);
+routes.get("/:id", UserController.show);
 
-routes.patch("/:id", User.update);
+routes.patch("/:id", UserController.update);
 
-routes.delete("/:id", User.delete);
+routes.delete("/:id", UserController.delete);
 
 export default routes;

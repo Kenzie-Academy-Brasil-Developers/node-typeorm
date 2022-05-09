@@ -5,7 +5,7 @@ import usersListService from "../../services/users/usersList.service";
 import userUpdateOneService from "../../services/users/userUpdateOne.service";
 import userDeleteService from "../../services/users/userDelete.service";
 
-class User {
+class UserController {
   static store = async (req: Request, res: Response) => {
     try {
       const { name, email, password, age } = req.newUser;
@@ -54,7 +54,24 @@ class User {
     }
   };
 
-  static update = async (req: Request, res: Response) => {};
+  static update = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const newValues = req.body;
+
+    try {
+      await userUpdateOneService(id, newValues);
+
+      return res.status(200).json({
+        message: "User updated",
+      });
+    } catch (err) {
+      if (err instanceof Error)
+        return res.status(400).send({
+          error: err.name,
+          message: err.message,
+        });
+    }
+  };
 
   static delete = async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -75,4 +92,4 @@ class User {
   };
 }
 
-export default User;
+export default UserController;
