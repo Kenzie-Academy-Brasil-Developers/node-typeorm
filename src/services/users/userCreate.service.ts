@@ -12,9 +12,11 @@ const userCreateService = async ({
   age,
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.find();
-
-  const emailAlreadyExists = users.find(user => user.email === email);
+  const emailAlreadyExists = await userRepository.findOne({
+    where: {
+      email,
+    },
+  });
 
   if (emailAlreadyExists) throw new Error("Email already in use.");
 

@@ -7,9 +7,7 @@ const userDeleteService = async (id: string) => {
 
   if (!user) throw new Error("User not found");
 
-  userRepository.delete(id);
-
-  return true;
+  return await userRepository.delete(id);
 };
 
 export default userDeleteService;

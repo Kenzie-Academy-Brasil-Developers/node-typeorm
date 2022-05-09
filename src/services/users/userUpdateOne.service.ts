@@ -16,19 +16,13 @@ const userUpdateOneService = async (
   if (password && (await bcrypt.compare(password, user.password)))
     throw new Error("Inform a different password");
 
-  if (password)
-    await userRepository.update(user.id, {
-      password: await bcrypt.hash(password, 8),
-    });
+  (password || email || name || age) && (user.updated_at = new Date());
+  password && (user.password = await bcrypt.hash(password, 8));
+  email && (user.email = email);
+  name && (user.name = name);
+  age && (user.age = age);
 
-  await userRepository.update(user.id, {
-    email,
-    name,
-    age,
-    updated_at: new Date(),
-  });
-
-  return true;
+  return await userRepository.save(user);
 };
 
 export default userUpdateOneService;
