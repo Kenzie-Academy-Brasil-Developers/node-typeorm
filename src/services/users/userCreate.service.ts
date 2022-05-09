@@ -3,7 +3,7 @@ import { AppDataSource } from "../../data-source";
 
 import { User } from "../../models/User";
 
-import { IUser, IUserCreate } from "../../interfaces/users";
+import { IUserCreate } from "../../interfaces/users";
 
 const userCreateService = async ({
   name,
@@ -14,7 +14,7 @@ const userCreateService = async ({
   const userRepository = AppDataSource.getRepository(User);
   const users = await userRepository.find();
 
-  const emailAlreadyExists = users.find((user: IUser) => user.email === email);
+  const emailAlreadyExists = users.find(user => user.email === email);
 
   if (emailAlreadyExists) throw new Error("Email already in use.");
 

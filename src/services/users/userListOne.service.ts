@@ -2,10 +2,13 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../models/User";
 
 const userListOneService = async (id: string) => {
-  const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.find();
+  const user = await AppDataSource.getRepository(User).findOne({
+    where: { id },
+  });
 
-  return users.find(user => user.id === id);
+  if (!user) throw new Error("User not found");
+
+  return user;
 };
 
 export default userListOneService;
