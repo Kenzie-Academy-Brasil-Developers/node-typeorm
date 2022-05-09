@@ -10,4 +10,4 @@ app.get("", (req, res) => res.send("Hello, world."));
 
 app.use("/users", routes);
 
-app.listen(3000);
+export default app;
