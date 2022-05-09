@@ -4,8 +4,8 @@ import userCreateService from "../../services/users/userCreate.service";
 class User {
   static store = async (req: Request, res: Response) => {
     try {
-      const { name, email, password } = req.newUser;
-      const newUser = await userCreateService({ name, email, password });
+      const { name, email, password, age } = req.newUser;
+      const newUser = await userCreateService({ name, email, password, age });
 
       return res.status(200).send(newUser);
     } catch (err) {

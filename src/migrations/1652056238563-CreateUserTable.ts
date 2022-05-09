@@ -33,7 +33,11 @@ export class CreateUserTable1652056238563 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "create_at",
+            name: "age",
+            type: "integer",
+          },
+          {
+            name: "created_at",
             type: "timestamptz",
             default: "now()",
           },

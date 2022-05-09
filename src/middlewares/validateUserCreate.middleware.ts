@@ -7,6 +7,7 @@ export const userCreateSchema: SchemaOf<IUserCreate> = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().required(),
+  age: yup.number().required(),
 });
 
 export const validateUserCreate =

@@ -5,7 +5,12 @@ import { User } from "../../models/User";
 
 import { IUser, IUserCreate } from "../../interfaces/users";
 
-const userCreateService = async ({ name, email, password }: IUserCreate) => {
+const userCreateService = async ({
+  name,
+  email,
+  password,
+  age,
+}: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
   const users = await userRepository.find();
 
@@ -16,6 +21,7 @@ const userCreateService = async ({ name, email, password }: IUserCreate) => {
   const user = new User();
   user.name = name;
   user.email = email;
+  user.age = age;
   user.password = await bcrypt.hash(password, 8);
 
   userRepository.create(user);
